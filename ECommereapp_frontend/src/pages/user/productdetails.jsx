@@ -26,7 +26,7 @@ const ProductDetail = () => {
   const [showLoginDialog, setShowLoginDialog] = useState(false);
   const [showAddAnimation, setShowAddAnimation] = useState(false);
   const [stockStatus, setStockStatus] = useState(null);
-
+  const [loading,setLoading] = useState(false);
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -42,6 +42,11 @@ const ProductDetail = () => {
     };
     fetchProduct();
   }, [productId]);
+  useEffect(() => {
+    if (showLoginDialog) {
+      window.location.href = '/login';
+    }
+  }, [showLoginDialog]);
 
   const calculateStockStatus = (productData) => {
     const stock = productData.inStockValue || 0;
@@ -73,6 +78,7 @@ const ProductDetail = () => {
   };
 
   const handleAddToCart = async () => {
+    setLoading(true);
     const userId = sessionStorage.getItem('userId');
     
     if (!userId) {
@@ -119,6 +125,7 @@ const ProductDetail = () => {
           );
         }, 1500);
       }
+      setLoading(false)
     } catch (error) {
       console.error('Error adding to cart:', error);
       toast.error('Failed to add item to cart');
@@ -140,6 +147,8 @@ const ProductDetail = () => {
       </div>
     );
   }
+  
+
 
   return (
     <>
@@ -266,11 +275,14 @@ const ProductDetail = () => {
                       disabled={stockStatus?.stock === 0}
                     >
                       <FaShoppingCart />
-                      <Link to={'/cart'}>
+                      {/* <Link > */}
                       <span>
-                        {stockStatus?.stock === 0 ? 'Out of Stock' : 'Add to Cart'}
+                        {
+                          loading? 'Loading':(stockStatus?.stock === 0 ? 'Out of Stock': 'Add to Cart')
+                        }
+                        
                       </span>
-                      </Link>
+                      {/* </Link> */}
                     </motion.button>
                 </div>
               </div>
