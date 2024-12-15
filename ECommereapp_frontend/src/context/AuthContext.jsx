@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useId } from 'react';
 import axios from 'axios'; // Import axios directly
 
 const AuthContext = createContext();
@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }) => {
       const response = await api.post('/auth/login', { email, password });
 
       if (response.data.message === 'Login successful') {
-        const { userId, userRole } = _role;
+        const { userId, userRole } = response.data;
         
         // Save userId and role in sessionStorage
         sessionStorage.setItem('userId', userId);

@@ -297,7 +297,7 @@ const Shop = ({category}) => {
                     </div>
 
                     <Link 
-                      to={`/${product._id}`} 
+                      to={`/shop/${product._id}`} 
                       className={`block ${viewMode === 'grid' ? 'mt-2' : 'mt-4'}`}
                     >
                       <button 

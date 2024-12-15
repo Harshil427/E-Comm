@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 import { FaHome, FaExclamationTriangle } from 'react-icons/fa';
 import { Helmet } from "react-helmet";
 
-const NotFoundPage = () => {
+const Unauthorized = () => {
   // return<>Hello</>
   console.log('hello called');
   localStorage.setItem('hello','hello this is called')
   return (
     <>
       <Helmet>
-        <title>404 | Mera Bestie</title>
+        <title>401 | Mera Bestie</title>
       </Helmet>
       <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center px-4 overflow-hidden relative">
         {/* Background Pattern */}
@@ -25,10 +25,10 @@ const NotFoundPage = () => {
             <div className="absolute -top-2 -right-2 w-full h-full bg-pink-100 rounded-xl -z-10 opacity-50" />
           </div>
           
-          <h1 className="text-6xl font-bold text-gray-800 mb-4 tracking-tight">404</h1>
-          <h2 className="text-2xl font-semibold text-gray-600 mb-6">Page Not Found</h2>
+          <h1 className="text-6xl font-bold text-gray-800 mb-4 tracking-tight">401</h1>
+          <h2 className="text-2xl font-semibold text-gray-600 mb-6">Unauthorized</h2>
           <p className="text-gray-500 mb-8 leading-relaxed">
-            Oops! The page you are looking for might have been removed or is temporarily unavailable.
+            Oops! The  you are unauthorized to access this.
           </p>
           
           <Link 
@@ -47,4 +47,4 @@ const NotFoundPage = () => {
   );
 };
 
-export default NotFoundPage;
+export default Unauthorized;

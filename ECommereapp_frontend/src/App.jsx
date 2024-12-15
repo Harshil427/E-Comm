@@ -36,14 +36,14 @@ function App() {
           <Route path="/cart" element={<ShoppingCartPage />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/adminLogin" element={<AdminLogin/>} />
-          <Route path="/:productId" element={<ProductDetail />} />
+          <Route path="/shop/:productId" element={<ProductDetail />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/admin/products" element={<Product />} />
           <Route path="/admin/complaints" element={<Complaints />} />
           <Route path="/admin/orders" element={<Orders />} />
           <Route path="/admin/customers" element={<Customers />} />
           <Route path="/admin/calendar" element={<CalendarPage />} />
-          <Route path="*" element={<NotFoundPage />} />
+          <Route path="*"  element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
