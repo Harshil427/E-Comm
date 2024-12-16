@@ -12,13 +12,16 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+  const [loading,setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true)
       const response = await login(emailOrMobile, password);
       if (response === 'Login successful') {
         window.location.href = '/';
+        setLoading(false)
       }
     } catch (error) {
       setError('Login failed. Please check your credentials.');
@@ -106,7 +109,7 @@ const Login = () => {
                 className="w-full bg-pink-500 text-white py-3 rounded-lg font-semibold hover:bg-pink-600 transition duration-300 transform active:scale-95"
                 whileTap={{ scale: 0.95 }}
               >
-                Log In
+                {loading ? 'Loading':'Login'}
               </motion.button>
             </form>
             <div className="mt-6 text-center">

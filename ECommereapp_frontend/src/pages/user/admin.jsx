@@ -3,6 +3,7 @@ import Dashboard from '../../components/admin/dashboard';
 import Sidebar from '../../components/admin/sidebar';
 import { Helmet } from "react-helmet";
 import { Menu, X } from 'lucide-react'; // Assuming you're using lucide-react for icons
+import Unauthorized from './unauthorized';
 
 const Admin = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -10,6 +11,11 @@ const Admin = () => {
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
     };
+    const role = localStorage.getItem('role')
+
+    if(role!='admin'){
+        return <Unauthorized/>
+    }
 
     return (
         <div className="flex h-screen overflow-hidden">
