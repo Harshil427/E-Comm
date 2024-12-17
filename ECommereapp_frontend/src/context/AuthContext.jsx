@@ -14,29 +14,47 @@ export const AuthProvider = ({ children }) => {
   });
 
   useEffect(() => {
-    const userId = sessionStorage.getItem('userId');
-    const userRole = sessionStorage.getItem('role'); // Retrieve role from sessionStorage
-
-    if (!userId) {
-      setUser(null); // Clear user state if session expired
-      setRole('user'); // Reset role to default
-    } else if (userRole) {
-      setRole(userRole); // Set role if available in sessionStorage
-    }
+    const checkSession = async () => {
+      const userId = sessionStorage.getItem('userId');
+      const userRole = sessionStorage.getItem('role');
+      if (userId) {
+        try {
+          const response = await api.get(`/auth/user/${userId}`);
+          setUser({ name: response.data.name, userId });
+          setRole(userRole || 'user');
+        } catch (err) {
+          console.error('Session verification failed:', err.message);
+          logout();
+        }
+      }
+    };
+    checkSession();
   }, []);
+  
 
   const signup = async (name, email, password) => {
-    const response = await api.post('/auth/signup', { name, email, password });
-    const { userId } = response.data;
+    try {
+      const response = await api.post('/auth/signup', 
+        { name: name, 
+          email: email, 
+          password: password 
+        }
+    );
+      const { userId } = response.data;
   
-    // Store userId and role in sessionStorage
-    sessionStorage.setItem('userId', userId);
-    sessionStorage.setItem('role', 'user'); // Default role for signup is 'user'
+      // Store userId and role in sessionStorage
+      sessionStorage.setItem('userId', userId);
+      sessionStorage.setItem('role', 'user'); // Default role for signup is 'user'
   
-    setUser({ name, email, userId });
-    setRole('user');
-    return userId;
+      setUser({ name, email, userId });
+      setRole('user');
+      return userId;
+    } catch (err) {
+      console.error('Signup error:', err.response?.data?.error || err.message);
+      throw err; // Ensure calling components can catch this error
+    }
   };
+  
 
   const login = async (email, password, _role = 'user') => {
     try {
