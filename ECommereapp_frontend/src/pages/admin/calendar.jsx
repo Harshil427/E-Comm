@@ -31,7 +31,8 @@ const CalendarPage = () => {
                 ) {
                   return 'bg-pink-200 text-pink-800 rounded-full';
                 }
-              }}
+              }
+            }
             />
           </div>
 
