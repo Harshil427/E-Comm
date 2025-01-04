@@ -6,7 +6,7 @@ import { Helmet } from "react-helmet";
 
 const CalendarPage = () => {
   const [date, setDate] = useState(new Date());
-
+//remove Extra dates
   return (
     <>
     <Helmet>
